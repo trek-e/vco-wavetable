@@ -1,0 +1,23 @@
+{
+  "slug": "Hurricane8",
+  "name": "Hurricane8",
+  "version": "2.0.0",
+  "license": "GPL-3.0-or-later",
+  "brand": "Synth-etic Intelligence",
+  "author": "Synth-etic Intelligence",
+  "authorEmail": "syntheticint@thepainterofsilence.com",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "Hurricane8VCO",
+      "name": "Hurricane 8",
+      "description": "8-voice polyphonic PPG-style wavetable oscillator with mip-mapped band-limited playback, stepped/interpolated scanning, and DAC bit-depth emulation",
+      "tags": ["Oscillator", "Polyphonic", "Wavetable", "Digital"]
+    }
+  ]
+}
