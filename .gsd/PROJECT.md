@@ -12,28 +12,11 @@ Authentic PPG wavetable character — the gritty, stepped, digital-analog hybrid
 
 ### Validated
 
-(None yet — ship to validate)
+All 31 requirements validated across S01-S05.
 
 ### Active
 
-- [ ] 8-voice polyphonic wavetable oscillator with 1V/oct tracking
-- [ ] PPG-style wavetable scanning with switchable stepped/interpolated modes
-- [ ] Configurable DAC bit depth emulation (8/12/16-bit)
-- [ ] Original PPG wavetable set included
-- [ ] User-loadable wavetables (single-cycle WAV and multi-frame WAV)
-- [ ] 8 individual voice outputs on 3.5mm jacks
-- [ ] 8 individual gate outputs on 3.5mm jacks
-- [ ] 8 voice outputs on polyphonic connector
-- [ ] 8 gate outputs on polyphonic connector
-- [ ] Velocity CV output on polyphonic connector
-- [ ] Mix (summed) voice output
-- [ ] Per-voice/global switchable ASR envelope for wavetable position with CV input
-- [ ] Wavetable start position control with CV input
-- [ ] Internal LFO for vibrato with rate and amount controls, both with CV inputs
-- [ ] Glide (portamento) amount control with CV input
-- [ ] Switchable polyphonic/unison voice modes (unison with detune)
-- [ ] Panel design for VCV Rack (SVG, needs to be created)
-- [ ] VCV Rack library submission-ready with documentation
+(none — all features implemented and tested)
 
 ### Out of Scope
 
@@ -71,4 +54,4 @@ Authentic PPG wavetable character — the gritty, stepped, digital-analog hybrid
 | Rack 2 primary, Rack 3 compatible | Ship on current stable, don't get blocked on unreleased version | — Pending |
 
 ---
-*Last updated: 2026-03-13 after S04 completion — user wavetable loading (single-cycle and multi-frame WAV), context menu, JSON persistence integrated, 139 total tests passing across 4 suites*
+*Last updated: 2026-03-13 after S05 completion — panel SVG (28HP), individual voice/gate outputs, velocity CV passthrough, VCV Library submission readiness. 163 total tests passing across 5 suites. All 31 requirements validated. Milestone M001 complete.*

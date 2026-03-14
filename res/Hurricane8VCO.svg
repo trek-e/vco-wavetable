@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="142.24mm" height="128.5mm" viewBox="0 0 142.24 128.5">
+  <defs>
+    <linearGradient id="panelBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a2a2e"/>
+      <stop offset="100%" stop-color="#1e1e22"/>
+    </linearGradient>
+    <linearGradient id="sectionBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#33333a"/>
+      <stop offset="100%" stop-color="#2a2a30"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Panel background -->
+  <rect width="142.24" height="128.5" fill="url(#panelBg)"/>
+
+  <!-- Panel border -->
+  <rect x="0.5" y="0.5" width="141.24" height="127.5" fill="none" stroke="#444" stroke-width="0.5" rx="0.5"/>
+
+  <!-- ============================================ -->
+  <!-- MODULE TITLE (text as paths) -->
+  <!-- ============================================ -->
+  <!-- "HURRICANE 8" title bar -->
+  <rect x="3" y="3" width="75" height="7" rx="1" fill="#c06020" opacity="0.9"/>
+
+  <!-- H -->
+  <path d="M5.5,4.5 v4.5 M5.5,6.75 h2 M7.5,4.5 v4.5" fill="none" stroke="#fff" stroke-width="0.6" stroke-linecap="round"/>
+  <!-- U -->
+  <path d="M9.5,4.5 v3.2 a1.2,1.2 0 0,0 2.4,0 v-3.2" fill="none" stroke="#fff" stroke-width="0.6" stroke-linecap="round"/>
+  <!-- R -->
+  <path d="M13.5,9 v-4.5 h1.5 a1,1 0 0,1 0,2 h-1.5 l2,2.5" fill="none" stroke="#fff" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- R -->
+  <path d="M18,9 v-4.5 h1.5 a1,1 0 0,1 0,2 h-1.5 l2,2.5" fill="none" stroke="#fff" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- I -->
+  <path d="M22.5,4.5 v4.5" fill="none" stroke="#fff" stroke-width="0.6" stroke-linecap="round"/>
+  <!-- C -->
+  <path d="M26.5,5.5 a2,2 0 0,0 -2,1.75 a2,2 0 0,0 2,1.75" fill="none" stroke="#fff" stroke-width="0.6" stroke-linecap="round"/>
+  <!-- A -->
+  <path d="M27.5,9 l1.5,-4.5 l1.5,4.5 M28.25,7.5 h1.5" fill="none" stroke="#fff" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- N -->
+  <path d="M32,9 v-4.5 l2.5,4.5 v-4.5" fill="none" stroke="#fff" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- E -->
+  <path d="M37,4.5 h-1.8 v4.5 h1.8 M35.2,6.75 h1.2" fill="none" stroke="#fff" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- space + "8" -->
+  <path d="M40,6 a1.2,1.2 0 1,1 0,0.01 M40,7.5 a1.3,1.3 0 1,1 0,0.01" fill="none" stroke="#fff" stroke-width="0.7" stroke-linecap="round"/>
+
+  <!-- ============================================ -->
+  <!-- SECTION: OSCILLATOR -->
+  <!-- ============================================ -->
+  <rect x="3" y="12" width="75" height="3.5" rx="0.5" fill="#c06020" opacity="0.6"/>
+  <!-- "OSCILLATOR" label -->
+  <!-- O -->
+  <path d="M5,13 a1.3,1.3 0 1,0 2.4,0 a1.3,1.3 0 1,0 -2.4,0" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" transform="translate(0,0.75)"/>
+  <!-- S -->
+  <path d="M9.5,12.5 a0.8,0.8 0 0,0 -1.2,0.7 a0.8,0.8 0 0,0 1.2,0.7 a0.8,0.8 0 0,1 -1.2,0.7" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" transform="translate(0,0.15)"/>
+  <!-- C -->
+  <path d="M12,12.8 a1,1 0 0,0 -1,0.95 a1,1 0 0,0 1,0.95" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" transform="translate(0,0)"/>
+  <!-- I -->
+  <path d="M13,12.5 v2.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round"/>
+  <!-- L -->
+  <path d="M14.5,12.5 v2.5 h1.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- L -->
+  <path d="M17.5,12.5 v2.5 h1.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Knob/switch labels (text as paths using tiny geometric letterforms) -->
+
+  <!-- BANK label at x=15, y=17 -->
+  <g transform="translate(12.5,17)" fill="#aaa" stroke="none">
+    <rect x="0" y="0" width="0.4" height="2.5"/>
+    <rect x="0" y="0" width="1.5" height="0.4"/>
+    <rect x="0" y="1.05" width="1.2" height="0.4"/>
+    <rect x="0" y="2.1" width="1.5" height="0.4"/>
+    <rect x="1.1" y="0" width="0.4" height="1.25"/>
+    <rect x="1.1" y="1.25" width="0.4" height="1.25"/>
+  </g>
+
+  <!-- POSITION label at x=35, y=17 -->
+  <g transform="translate(32,17)" fill="#aaa" stroke="none">
+    <rect x="0" y="0" width="0.4" height="2.5"/>
+    <rect x="0" y="0" width="1.5" height="0.4"/>
+    <rect x="0" y="1.05" width="1.5" height="0.4"/>
+    <rect x="1.1" y="0" width="0.4" height="1.25"/>
+    <!-- O -->
+    <rect x="2.2" y="0.4" width="0.4" height="1.7"/>
+    <rect x="3.4" y="0.4" width="0.4" height="1.7"/>
+    <rect x="2.2" y="0" width="1.6" height="0.4"/>
+    <rect x="2.2" y="2.1" width="1.6" height="0.4"/>
+    <!-- S -->
+    <rect x="4.4" y="0" width="1.5" height="0.4"/>
+    <rect x="4.4" y="0" width="0.4" height="1.25"/>
+    <rect x="4.4" y="1.05" width="1.5" height="0.4"/>
+    <rect x="5.5" y="1.25" width="0.4" height="1.25"/>
+    <rect x="4.4" y="2.1" width="1.5" height="0.4"/>
+  </g>
+
+  <!-- SCAN label at x=52, y=17 -->
+  <g transform="translate(49.5,17)" fill="#aaa" stroke="none">
+    <!-- S -->
+    <rect x="0" y="0" width="1.5" height="0.35"/>
+    <rect x="0" y="0" width="0.35" height="1.25"/>
+    <rect x="0" y="1.05" width="1.5" height="0.35"/>
+    <rect x="1.15" y="1.25" width="0.35" height="1.25"/>
+    <rect x="0" y="2.15" width="1.5" height="0.35"/>
+    <!-- C -->
+    <rect x="2" y="0" width="1.5" height="0.35"/>
+    <rect x="2" y="0" width="0.35" height="2.5"/>
+    <rect x="2" y="2.15" width="1.5" height="0.35"/>
+  </g>
+
+  <!-- DAC label at x=67, y=17 -->
+  <g transform="translate(64.5,17)" fill="#aaa" stroke="none">
+    <!-- D -->
+    <rect x="0" y="0" width="0.35" height="2.5"/>
+    <rect x="0" y="0" width="1.2" height="0.35"/>
+    <rect x="0" y="2.15" width="1.2" height="0.35"/>
+    <rect x="1.2" y="0.35" width="0.35" height="1.8"/>
+    <!-- A -->
+    <rect x="2" y="0" width="1.5" height="0.35"/>
+    <rect x="2" y="0" width="0.35" height="2.5"/>
+    <rect x="3.15" y="0" width="0.35" height="2.5"/>
+    <rect x="2" y="1.05" width="1.5" height="0.35"/>
+    <!-- C -->
+    <rect x="4" y="0" width="1.5" height="0.35"/>
+    <rect x="4" y="0" width="0.35" height="2.5"/>
+    <rect x="4" y="2.15" width="1.5" height="0.35"/>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- SECTION: VOICE -->
+  <!-- ============================================ -->
+  <rect x="3" y="30" width="55" height="3.5" rx="0.5" fill="#c06020" opacity="0.6"/>
+  <!-- "VOICE" section label -->
+  <!-- V -->
+  <path d="M5,31 l1,2.5 l1,-2.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- O -->
+  <path d="M8.5,32.25 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0" fill="none" stroke="#fff" stroke-width="0.4"/>
+  <!-- I -->
+  <path d="M12,31 v2.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round"/>
+  <!-- C -->
+  <path d="M15,31.5 a1,1 0 0,0 -1.2,0.75 a1,1 0 0,0 1.2,0.75" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round"/>
+  <!-- E -->
+  <path d="M17.5,31 h-1.5 v2.5 h1.5 M16,32.25 h1" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- MODE label at x=15, y=34 -->
+  <g transform="translate(12,34.5)" fill="#999" stroke="none">
+    <rect x="0" y="0" width="0.3" height="2"/>
+    <rect x="0" y="0" width="0.8" height="0.3"/>
+    <rect x="0.8" y="0" width="0.3" height="2"/>
+    <rect x="1.1" y="0" width="0.8" height="0.3"/>
+    <rect x="1.9" y="0" width="0.3" height="2"/>
+  </g>
+
+  <!-- DETUNE label at x=35, y=34 -->
+  <g transform="translate(31.5,34.5)" fill="#999" stroke="none">
+    <rect x="0" y="0" width="0.3" height="2"/>
+    <rect x="0" y="0" width="1" height="0.3"/>
+    <rect x="0" y="1.7" width="1" height="0.3"/>
+    <rect x="1" y="0.3" width="0.3" height="1.4"/>
+    <!-- E -->
+    <rect x="1.7" y="0" width="0.3" height="2"/>
+    <rect x="1.7" y="0" width="1.2" height="0.3"/>
+    <rect x="1.7" y="0.85" width="1" height="0.3"/>
+    <rect x="1.7" y="1.7" width="1.2" height="0.3"/>
+    <!-- T -->
+    <rect x="3.3" y="0" width="1.5" height="0.3"/>
+    <rect x="3.9" y="0" width="0.3" height="2"/>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- SECTION: MODULATION -->
+  <!-- ============================================ -->
+  <rect x="3" y="44" width="75" height="3.5" rx="0.5" fill="#c06020" opacity="0.6"/>
+  <!-- "MODULATION" label -->
+  <!-- M -->
+  <path d="M5,47 v-2.5 l1,1.5 l1,-1.5 v2.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- O -->
+  <path d="M8.5,45.75 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0" fill="none" stroke="#fff" stroke-width="0.4"/>
+  <!-- D -->
+  <path d="M12,44.5 v2.5 h0.8 a1.25,1.25 0 0,0 0,-2.5 z" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- START label at x=15, y=48 -->
+  <!-- ATK label at x=35, y=48 -->
+  <!-- REL label at x=52, y=48 -->
+  <!-- ENV label at x=67, y=48 -->
+
+  <!-- LFO RATE label at x=15, y=63 -->
+  <!-- LFO AMT label at x=35, y=63 -->
+  <!-- GLIDE label at x=52, y=63 -->
+
+  <!-- Small label dots to mark knob positions (visual indicators) -->
+  <circle cx="15" cy="49" r="0.6" fill="#c06020" opacity="0.5"/>
+  <circle cx="35" cy="49" r="0.6" fill="#c06020" opacity="0.5"/>
+  <circle cx="52" cy="49" r="0.6" fill="#c06020" opacity="0.5"/>
+  <circle cx="67" cy="49" r="0.6" fill="#c06020" opacity="0.5"/>
+  <circle cx="15" cy="64" r="0.6" fill="#c06020" opacity="0.5"/>
+  <circle cx="35" cy="64" r="0.6" fill="#c06020" opacity="0.5"/>
+  <circle cx="52" cy="64" r="0.6" fill="#c06020" opacity="0.5"/>
+
+  <!-- ============================================ -->
+  <!-- SECTION: INPUTS -->
+  <!-- ============================================ -->
+  <rect x="3" y="75" width="62" height="3.5" rx="0.5" fill="#3060a0" opacity="0.6"/>
+  <!-- "INPUTS" label -->
+  <!-- I -->
+  <path d="M5.5,75.5 v2.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round"/>
+  <!-- N -->
+  <path d="M7.5,78 v-2.5 l2,2.5 v-2.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Input jack labels (tiny, below section header) -->
+  <!-- V/O label at x=10 -->
+  <circle cx="10" cy="80" r="0.5" fill="#3060a0" opacity="0.4"/>
+  <circle cx="25" cy="80" r="0.5" fill="#3060a0" opacity="0.4"/>
+  <circle cx="40" cy="80" r="0.5" fill="#3060a0" opacity="0.4"/>
+  <circle cx="55" cy="80" r="0.5" fill="#3060a0" opacity="0.4"/>
+  <circle cx="10" cy="95" r="0.5" fill="#3060a0" opacity="0.4"/>
+  <circle cx="25" cy="95" r="0.5" fill="#3060a0" opacity="0.4"/>
+  <circle cx="40" cy="95" r="0.5" fill="#3060a0" opacity="0.4"/>
+  <circle cx="55" cy="95" r="0.5" fill="#3060a0" opacity="0.4"/>
+
+  <!-- ============================================ -->
+  <!-- SECTION: POLY OUTPUTS -->
+  <!-- ============================================ -->
+  <rect x="3" y="105" width="62" height="3.5" rx="0.5" fill="#20a050" opacity="0.6"/>
+  <!-- "OUTPUTS" label -->
+  <!-- O -->
+  <path d="M5.5,106.75 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0" fill="none" stroke="#fff" stroke-width="0.4"/>
+  <!-- U -->
+  <path d="M9.5,105.5 v1.5 a1,1 0 0,0 2,0 v-1.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round"/>
+  <!-- T -->
+  <path d="M13,105.5 h2 M14,105.5 v2.5" fill="none" stroke="#fff" stroke-width="0.4" stroke-linecap="round"/>
+
+  <!-- Output jack position indicators -->
+  <circle cx="10" cy="110" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="25" cy="110" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="40" cy="110" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="55" cy="110" r="0.5" fill="#20a050" opacity="0.4"/>
+
+  <!-- ============================================ -->
+  <!-- SECTION: INDIVIDUAL VOICE OUTPUTS (right side) -->
+  <!-- ============================================ -->
+
+  <!-- Vertical divider -->
+  <line x1="80" y1="3" x2="80" y2="125.5" stroke="#444" stroke-width="0.3"/>
+
+  <!-- VOICE OUTPUTS header -->
+  <rect x="82" y="3" width="57" height="7" rx="1" fill="#20a050" opacity="0.4"/>
+
+  <!-- "VOICE OUTPUTS" -->
+  <!-- V -->
+  <path d="M84,4.5 l1,4.5 l1,-4.5" fill="none" stroke="#ddd" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- O -->
+  <path d="M87.5,6.75 a1.2,1.2 0 1,0 2.4,0 a1.2,1.2 0 1,0 -2.4,0" fill="none" stroke="#ddd" stroke-width="0.5"/>
+  <!-- I -->
+  <path d="M91.5,4.5 v4.5" fill="none" stroke="#ddd" stroke-width="0.5" stroke-linecap="round"/>
+  <!-- C -->
+  <path d="M95.5,5.5 a2,2 0 0,0 -2,1.25 a2,2 0 0,0 2,1.25" fill="none" stroke="#ddd" stroke-width="0.5" stroke-linecap="round"/>
+  <!-- E -->
+  <path d="M98.5,4.5 h-2 v4.5 h2 M96.5,6.75 h1.5" fill="none" stroke="#ddd" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Column headers: AUDIO / GATE -->
+  <rect x="93" y="12" width="15" height="3" rx="0.5" fill="#20a050" opacity="0.3"/>
+  <rect x="118" y="12" width="15" height="3" rx="0.5" fill="#20a050" opacity="0.3"/>
+
+  <!-- "AUD" label -->
+  <g transform="translate(96,12.5)" fill="#aaa" stroke="none">
+    <!-- A -->
+    <rect x="0" y="0" width="1.2" height="0.3"/>
+    <rect x="0" y="0" width="0.3" height="2"/>
+    <rect x="0.9" y="0" width="0.3" height="2"/>
+    <rect x="0" y="0.85" width="1.2" height="0.3"/>
+  </g>
+
+  <!-- "GATE" label -->
+  <g transform="translate(120,12.5)" fill="#aaa" stroke="none">
+    <!-- G -->
+    <rect x="0" y="0" width="1.5" height="0.3"/>
+    <rect x="0" y="0" width="0.3" height="2"/>
+    <rect x="0" y="1.7" width="1.5" height="0.3"/>
+    <rect x="1.2" y="1" width="0.3" height="1"/>
+    <rect x="0.7" y="1" width="0.8" height="0.3"/>
+  </g>
+
+  <!-- Voice number labels and jack position markers (1-8) -->
+  <!-- Voice 1 -->
+  <g transform="translate(85,17.5)" fill="#888" stroke="none">
+    <rect x="0" y="0" width="0.4" height="2.5"/>
+  </g>
+  <circle cx="100" cy="19" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="125" cy="19" r="0.5" fill="#20a050" opacity="0.4"/>
+
+  <!-- Voice 2 -->
+  <g transform="translate(85,28)" fill="#888" stroke="none">
+    <rect x="0" y="0" width="1.5" height="0.35"/>
+    <rect x="1.15" y="0" width="0.35" height="1.25"/>
+    <rect x="0" y="1.05" width="1.5" height="0.35"/>
+    <rect x="0" y="1.25" width="0.35" height="1.25"/>
+    <rect x="0" y="2.15" width="1.5" height="0.35"/>
+  </g>
+  <circle cx="100" cy="29.5" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="125" cy="29.5" r="0.5" fill="#20a050" opacity="0.4"/>
+
+  <!-- Voice 3 -->
+  <g transform="translate(85,38.5)" fill="#888" stroke="none">
+    <rect x="0" y="0" width="1.5" height="0.35"/>
+    <rect x="1.15" y="0" width="0.35" height="1.25"/>
+    <rect x="0" y="1.05" width="1.5" height="0.35"/>
+    <rect x="1.15" y="1.25" width="0.35" height="1.25"/>
+    <rect x="0" y="2.15" width="1.5" height="0.35"/>
+  </g>
+  <circle cx="100" cy="40" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="125" cy="40" r="0.5" fill="#20a050" opacity="0.4"/>
+
+  <!-- Voice 4 -->
+  <g transform="translate(85,49)" fill="#888" stroke="none">
+    <rect x="0" y="0" width="0.35" height="1.5"/>
+    <rect x="1.15" y="0" width="0.35" height="2.5"/>
+    <rect x="0" y="1.05" width="1.5" height="0.35"/>
+  </g>
+  <circle cx="100" cy="50.5" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="125" cy="50.5" r="0.5" fill="#20a050" opacity="0.4"/>
+
+  <!-- Voice 5 -->
+  <g transform="translate(85,59.5)" fill="#888" stroke="none">
+    <rect x="0" y="0" width="1.5" height="0.35"/>
+    <rect x="0" y="0" width="0.35" height="1.25"/>
+    <rect x="0" y="1.05" width="1.5" height="0.35"/>
+    <rect x="1.15" y="1.25" width="0.35" height="1.25"/>
+    <rect x="0" y="2.15" width="1.5" height="0.35"/>
+  </g>
+  <circle cx="100" cy="61" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="125" cy="61" r="0.5" fill="#20a050" opacity="0.4"/>
+
+  <!-- Voice 6 -->
+  <g transform="translate(85,70)" fill="#888" stroke="none">
+    <rect x="0" y="0" width="1.5" height="0.35"/>
+    <rect x="0" y="0" width="0.35" height="2.5"/>
+    <rect x="0" y="1.05" width="1.5" height="0.35"/>
+    <rect x="1.15" y="1.25" width="0.35" height="1.25"/>
+    <rect x="0" y="2.15" width="1.5" height="0.35"/>
+  </g>
+  <circle cx="100" cy="71.5" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="125" cy="71.5" r="0.5" fill="#20a050" opacity="0.4"/>
+
+  <!-- Voice 7 -->
+  <g transform="translate(85,80.5)" fill="#888" stroke="none">
+    <rect x="0" y="0" width="1.5" height="0.35"/>
+    <rect x="1.15" y="0" width="0.35" height="2.5"/>
+  </g>
+  <circle cx="100" cy="82" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="125" cy="82" r="0.5" fill="#20a050" opacity="0.4"/>
+
+  <!-- Voice 8 -->
+  <g transform="translate(85,91)" fill="#888" stroke="none">
+    <rect x="0" y="0" width="1.5" height="0.35"/>
+    <rect x="0" y="0" width="0.35" height="2.5"/>
+    <rect x="1.15" y="0" width="0.35" height="2.5"/>
+    <rect x="0" y="1.05" width="1.5" height="0.35"/>
+    <rect x="0" y="2.15" width="1.5" height="0.35"/>
+  </g>
+  <circle cx="100" cy="92.5" r="0.5" fill="#20a050" opacity="0.4"/>
+  <circle cx="125" cy="92.5" r="0.5" fill="#20a050" opacity="0.4"/>
+
+  <!-- ============================================ -->
+  <!-- BRAND FOOTER -->
+  <!-- ============================================ -->
+  <rect x="82" y="100" width="57" height="4" rx="0.5" fill="#333" opacity="0.5"/>
+  <!-- "SYNTH-ETIC" brand mark -->
+  <!-- S -->
+  <path d="M85,101 a0.6,0.6 0 0,0 -0.8,0.5 a0.6,0.6 0 0,0 0.8,0.5 a0.6,0.6 0 0,1 -0.8,0.5" fill="none" stroke="#666" stroke-width="0.35" stroke-linecap="round"/>
+  <!-- I -->
+  <path d="M87,101 v2" fill="none" stroke="#666" stroke-width="0.35" stroke-linecap="round"/>
+
+  <!-- PPG WAVE inspired decorative element -->
+  <rect x="82" y="106" width="57" height="18" rx="1" fill="#222" opacity="0.3"/>
+  <!-- Wavetable visualization hint (decorative sine-ish waveform) -->
+  <path d="M85,115 q3,-6 6,0 q3,6 6,0 q3,-6 6,0 q3,6 6,0 q3,-6 6,0 q3,6 6,0 q3,-6 6,0 q3,6 6,0"
+        fill="none" stroke="#c06020" stroke-width="0.5" opacity="0.4"/>
+  <path d="M85,117 q4,-3 8,0 q4,3 8,0 q4,-3 8,0 q4,3 8,0 q4,-3 8,0"
+        fill="none" stroke="#3060a0" stroke-width="0.3" opacity="0.3"/>
+
+  <!-- Screw holes (corner markers for VCV Rack) -->
+  <!-- Top-left -->
+  <circle cx="5.08" cy="5.08" r="2" fill="none" stroke="#555" stroke-width="0.2" opacity="0.3"/>
+  <!-- Top-right -->
+  <circle cx="137.16" cy="5.08" r="2" fill="none" stroke="#555" stroke-width="0.2" opacity="0.3"/>
+  <!-- Bottom-left -->
+  <circle cx="5.08" cy="123.42" r="2" fill="none" stroke="#555" stroke-width="0.2" opacity="0.3"/>
+  <!-- Bottom-right -->
+  <circle cx="137.16" cy="123.42" r="2" fill="none" stroke="#555" stroke-width="0.2" opacity="0.3"/>
+</svg>

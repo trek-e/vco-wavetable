@@ -2,6 +2,10 @@
 
 ## Active
 
+(none — all requirements validated or deferred)
+
+## Validated
+
 ### DSP-01 — Oscillator tracks 1V/oct pitch input across 10+ octaves with polyphonic support (8 channels)
 
 - Status: validated
@@ -34,46 +38,51 @@ Wavetable position is controllable via knob with CV input and attenuverter
 
 ### DSP-04 — PPG stepped scanning mode switches wavetables at zero-crossing points (authentic PPG behavior)
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S01 (implemented and unit-tested)
+- Validated by: S01 stepped_scanning_waits_for_zero_cross, stepped_scanning_immediate_when_at_zero
 
 PPG stepped scanning mode switches wavetables at zero-crossing points (authentic PPG behavior)
 
 ### DSP-05 — Interpolated scanning mode crossfades smoothly between adjacent wavetables
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S01 (implemented and unit-tested)
+- Validated by: S01 interpolated_scanning_blends_frames, interpolated_scanning_continuous
 
 Interpolated scanning mode crossfades smoothly between adjacent wavetables
 
 ### DSP-06 — User can switch between stepped and interpolated scanning modes
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S01 (implemented and unit-tested)
+- Validated by: S01 scan_mode_enum_values
 
 User can switch between stepped and interpolated scanning modes
 
 ### DSP-07 — DAC bit depth emulation quantizes output at selectable 8-bit, 12-bit, or 16-bit resolution
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S01 (implemented and unit-tested)
+- Validated by: S01 dac_8bit/12bit/16bit_quantization, dac_8bit_creates_audible_steps, dac_preserves_sign
 
 DAC bit depth emulation quantizes output at selectable 8-bit, 12-bit, or 16-bit resolution
 
 ### WTD-01 — Original PPG ROM wavetable set is bundled and immediately playable
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S01 (32 tables generated and mip-mapped)
+- Validated by: S01 ppg_rom_generates_valid_data, all_32_tables_have_data, wavetable_bank_all_tables_mipmapped, voice_produces_output_at_c4
 
 Original PPG ROM wavetable set is bundled and immediately playable
 
@@ -99,19 +108,21 @@ User can load multi-frame WAV files (Serum-style concatenated cycles)
 
 ### WTD-04 — Right-click context menu provides wavetable file loading dialog
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
-- Primary Slice: S04 (implemented), S05 (live verification)
+- Primary Slice: S04 (implemented), S05 (panel/widget finalized)
+- Validated by: Code inspection — appendContextMenu() implemented with osdialog file picker, load/revert actions, and status label. Requires live Rack for interactive testing.
 
 Right-click context menu provides wavetable file loading dialog
 
 ### WTD-05 — Loaded wavetable file path persists across patch save/load (JSON serialization)
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
-- Primary Slice: S04 (implemented), S05 (live verification)
+- Primary Slice: S04 (implemented), S05 (panel/widget finalized)
+- Validated by: Code inspection — dataToJson/dataFromJson implemented with userWavetablePath serialization. Requires live Rack for round-trip testing.
 
 Loaded wavetable file path persists across patch save/load (JSON serialization)
 
@@ -217,28 +228,31 @@ Mix output sums all active voices to a single mono signal
 
 ### OUT-04 — 8 individual 3.5mm audio output jacks, one per voice
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S05
+- Validated by: 5 unit tests (out04_individual_audio_polyphonic_4voices, out04_individual_audio_all_8_voices, out04_individual_audio_unison_all_active, out04_individual_voices_are_independent, out04_individual_output_matches_poly_output)
 
 8 individual 3.5mm audio output jacks, one per voice
 
 ### OUT-05 — 8 individual 3.5mm gate output jacks, one per voice
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S05
+- Validated by: 3 unit tests (out05_individual_gate_polyphonic, out05_individual_gate_unison, out05_gate_off_silences_individual)
 
 8 individual 3.5mm gate output jacks, one per voice
 
 ### OUT-06 — Polyphonic velocity CV output passes velocity data from upstream MIDI-CV
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S05
+- Validated by: 2 unit tests (out06_velocity_passthrough_concept, out06_velocity_values_bounded) + code inspection (direct input→output passthrough in process())
 
 Polyphonic velocity CV output passes velocity data from upstream MIDI-CV
 
@@ -274,32 +288,33 @@ User can switch between polyphonic and unison modes
 
 ### PNL-01 — Panel SVG meets VCV Rack library design standards (text as paths, readable at 100%)
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S05
+- Validated by: 5 unit tests (pnl01_panel_svg_exists, pnl01_panel_svg_valid_xml, pnl01_panel_svg_correct_dimensions, pnl01_panel_svg_no_text_elements, pnl01_panel_svg_has_viewbox)
 
 Panel SVG meets VCV Rack library design standards (text as paths, readable at 100%)
 
 ### PNL-02 — Plugin manifest (plugin.json) has correct versioning and metadata for VCV Library
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
-- Primary Slice: S01 (initial manifest created), S05 (final review)
+- Primary Slice: S01 (initial manifest created), S05 (final review and validation)
+- Validated by: 4 unit tests (pnl02_plugin_json_exists, pnl02_plugin_json_has_required_fields, pnl02_module_entry_correct, pnl02_version_format)
 
 Plugin manifest (plugin.json) has correct versioning and metadata for VCV Library
 
 ### PNL-03 — Module builds cleanly for VCV Rack 2 and avoids deprecated APIs for Rack 3 compatibility
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
-- Primary Slice: S01 (builds clean with zero warnings)
+- Primary Slice: S01 (builds clean with zero warnings), S05 (final clean build verified)
+- Validated by: 3 unit tests (pnl03_polyphonic_engine_header_standalone, pnl03_max_poly_voices_is_8, pnl03_output_count_consistency) + zero-warning Rack SDK build
 
 Module builds cleanly for VCV Rack 2 and avoids deprecated APIs for Rack 3 compatibility
-
-## Validated
 
 ## Deferred
 

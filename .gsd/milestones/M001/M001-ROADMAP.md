@@ -15,5 +15,5 @@
   > After this: unit tests prove Modulation works
 - [x] **S04: User Wavetables** `risk:medium` `depends:[S03]`
   > After this: unit tests prove User Wavetables works
-- [ ] **S05: Panel and Submission** `risk:medium` `depends:[S04]`
+- [x] **S05: Panel and Submission** `risk:medium` `depends:[S04]`
   > After this: unit tests prove Panel and Submission works
