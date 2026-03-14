@@ -18,3 +18,6 @@
 | D012 | LFO vibrato depth mapped as semitones in V/Oct space (amount 1.0 = 1 semitone) | 1 semitone max depth matches typical hardware vibrato range; linear in V/Oct gives exponential frequency modulation | 2026-03-13 |
 | D013 | Glide uses one-pole filter on V/Oct input | Exponential frequency response gives constant time per octave traversal — musically correct portamento | 2026-03-13 |
 | D014 | Global envelope triggered by OR of all active gates | Simplest correct behavior — global mode treats the ensemble as one instrument; any note held keeps the envelope open | 2026-03-13 |
+| D015 | Multi-frame cycle detection uses smallest-first matching (256 before 512 before 1024...) | Serum-style concatenated WAV files are the most common user wavetable format — 2048 samples should be 8×256 frames, not 1×2048 | 2026-03-13 |
+| D016 | User wavetable fills all 32 bank slots with the same MipMappedTable | PolyphonicEngine takes a WavetableBank reference — simplest integration is to fill all slots so any table index works when user table is loaded; ~2MB per instance is acceptable | 2026-03-13 |
+| D017 | Self-contained WAV parser (no external library) | Keeps the module dependency-free; wavetable WAV files are simple (mono, small, no compression); supports 8/16/24/32-bit PCM and 32-bit float | 2026-03-13 |

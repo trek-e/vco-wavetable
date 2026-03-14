@@ -13,6 +13,8 @@
 #include "wavetable_engine.hpp"
 #include "polyphonic_engine.hpp"
 #include "modulation_engine.hpp"
+#include "wav_loader.hpp"
+#include <osdialog.h>
 
 using namespace rack;
 
@@ -71,6 +73,12 @@ struct Hurricane8VCO : Module {
 	PolyphonicEngine polyEngine;
 	ModulationEngine modEngine;
 
+	// User wavetable state (WTD-02..05)
+	std::string userWavetablePath;         // Empty = using PPG ROM tables
+	WavetableBank userBank;                // User wavetable bank (all slots = same table)
+	bool userTableLoaded = false;          // True when a user wavetable is active
+	int userTableNumFrames = 0;            // Number of frames in the user wavetable
+
 	Hurricane8VCO() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 
@@ -103,6 +111,48 @@ struct Hurricane8VCO : Module {
 		configOutput(MIX_OUTPUT, "Mix");
 
 		ensureWavetables();
+	}
+
+	// Load a user wavetable from a WAV file path (WTD-02, WTD-03)
+	void loadUserWavetableFromFile(const std::string& path) {
+		UserWavetable loaded = loadUserWavetable(path);
+		if (loaded.valid) {
+			// Fill all 32 bank slots with the user table so any table index works
+			for (int t = 0; t < PPG_NUM_TABLES; t++) {
+				userBank.tables[t] = loaded.table;
+			}
+			userBank.initialized = true;
+			userTableNumFrames = loaded.numFrames;
+			userWavetablePath = path;
+			userTableLoaded = true;
+		}
+	}
+
+	// Clear user wavetable — revert to PPG ROM tables
+	void clearUserWavetable() {
+		userWavetablePath.clear();
+		userTableLoaded = false;
+		userTableNumFrames = 0;
+	}
+
+	// JSON serialization — persist user wavetable path (WTD-05)
+	json_t* dataToJson() override {
+		json_t* rootJ = json_object();
+		if (!userWavetablePath.empty()) {
+			json_object_set_new(rootJ, "userWavetablePath",
+				json_string(userWavetablePath.c_str()));
+		}
+		return rootJ;
+	}
+
+	void dataFromJson(json_t* rootJ) override {
+		json_t* pathJ = json_object_get(rootJ, "userWavetablePath");
+		if (pathJ && json_is_string(pathJ)) {
+			std::string path = json_string_value(pathJ);
+			if (!path.empty()) {
+				loadUserWavetableFromFile(path);
+			}
+		}
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -210,12 +260,15 @@ struct Hurricane8VCO : Module {
 		polyEngine.voiceMode = (voiceMode == 0) ? VoiceMode::Polyphonic : VoiceMode::Unison;
 		polyEngine.unisonDetuneCents = detune;
 
+		// Select wavetable bank: user wavetable if loaded, otherwise PPG ROM
+		const WavetableBank& activeBank = userTableLoaded ? userBank : wavetableBank;
+
 		// Process all voices with modulated inputs
 		// Note: we pass the modulated position of voice 0 as the "base" position
 		// since the polyEngine expects a single position. Per-voice position
 		// modulation happens via the envelope which is already applied.
 		float effectivePosition = modulatedPositions[0];
-		polyEngine.process(wavetableBank, modulatedVocts, gateInputs,
+		polyEngine.process(activeBank, modulatedVocts, gateInputs,
 		                   numInputChannels, effectivePosition, args.sampleRate);
 
 		// Set polyphonic audio output
@@ -295,6 +348,50 @@ struct Hurricane8VCOWidget : ModuleWidget {
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15, 115)), module, Hurricane8VCO::AUDIO_OUTPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(35, 115)), module, Hurricane8VCO::GATE_OUTPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(55, 115)), module, Hurricane8VCO::MIX_OUTPUT));
+	}
+
+	// Right-click context menu for loading user wavetables (WTD-04)
+	void appendContextMenu(ui::Menu* menu) override {
+		Hurricane8VCO* module = dynamic_cast<Hurricane8VCO*>(this->module);
+		if (!module) return;
+
+		menu->addChild(new ui::MenuSeparator);
+
+		// Show current wavetable source
+		if (module->userTableLoaded) {
+			// Extract filename from path for display
+			std::string filename = module->userWavetablePath;
+			size_t lastSlash = filename.find_last_of("/\\");
+			if (lastSlash != std::string::npos)
+				filename = filename.substr(lastSlash + 1);
+
+			menu->addChild(createMenuLabel("Wavetable: " + filename +
+				" (" + std::to_string(module->userTableNumFrames) + " frames)"));
+		} else {
+			menu->addChild(createMenuLabel("Wavetable: PPG ROM (built-in)"));
+		}
+
+		// Load wavetable item
+		menu->addChild(createMenuItem("Load wavetable...", "",
+			[=]() {
+				osdialog_filters* filters = osdialog_filters_parse("WAV files:wav");
+				char* pathC = osdialog_file(OSDIALOG_OPEN, NULL, NULL, filters);
+				if (pathC) {
+					module->loadUserWavetableFromFile(std::string(pathC));
+					free(pathC);
+				}
+				osdialog_filters_free(filters);
+			}
+		));
+
+		// Revert to built-in wavetables
+		if (module->userTableLoaded) {
+			menu->addChild(createMenuItem("Revert to PPG ROM wavetables", "",
+				[=]() {
+					module->clearUserWavetable();
+				}
+			));
+		}
 	}
 };
 

@@ -71,4 +71,4 @@ Authentic PPG wavetable character — the gritty, stepped, digital-analog hybrid
 | Rack 2 primary, Rack 3 compatible | Ship on current stable, don't get blocked on unreleased version | — Pending |
 
 ---
-*Last updated: 2026-03-13 after S03 completion — modulation engine (ASR envelope, LFO vibrato, glide, start position) integrated, 103 total tests passing*
+*Last updated: 2026-03-13 after S04 completion — user wavetable loading (single-cycle and multi-frame WAV), context menu, JSON persistence integrated, 139 total tests passing across 4 suites*

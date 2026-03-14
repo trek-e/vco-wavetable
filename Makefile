@@ -40,8 +40,8 @@ install: dist
 	@echo "Installed $(PLUGIN_SLUG) to $(RACK_PLUGINS_DIR)"
 
 # Test target: build and run all standalone DSP tests (no Rack SDK dependency)
-.PHONY: test test-dsp test-poly
-test: test-dsp test-poly
+.PHONY: test test-dsp test-poly test-mod test-user-wt
+test: test-dsp test-poly test-mod test-user-wt
 
 test-dsp:
 	g++ -std=c++17 -O2 -I src -o tests/test_dsp_foundation tests/test_dsp_foundation.cpp -lm
@@ -50,3 +50,11 @@ test-dsp:
 test-poly:
 	g++ -std=c++17 -O2 -I src -o tests/test_polyphonic_routing tests/test_polyphonic_routing.cpp -lm
 	./tests/test_polyphonic_routing
+
+test-mod:
+	g++ -std=c++17 -O2 -I src -o tests/test_modulation tests/test_modulation.cpp -lm
+	./tests/test_modulation
+
+test-user-wt:
+	g++ -std=c++17 -O2 -I src -o tests/test_user_wavetables tests/test_user_wavetables.cpp -lm
+	./tests/test_user_wavetables

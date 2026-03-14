@@ -79,19 +79,21 @@ Original PPG ROM wavetable set is bundled and immediately playable
 
 ### WTD-02 — User can load single-cycle WAV files as custom wavetables
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S04
+- Validated by: 22 unit tests (WAV parsing, single-cycle loading, resampling, mip-map generation, playback through voice)
 
 User can load single-cycle WAV files as custom wavetables
 
 ### WTD-03 — User can load multi-frame WAV files (Serum-style concatenated cycles)
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S04
+- Validated by: 7 unit tests (multi-frame detection, Serum-style WAV, frame clamping, scanning, different waveform content)
 
 User can load multi-frame WAV files (Serum-style concatenated cycles)
 
@@ -100,7 +102,7 @@ User can load multi-frame WAV files (Serum-style concatenated cycles)
 - Status: active
 - Class: core-capability
 - Source: inferred
-- Primary Slice: S04
+- Primary Slice: S04 (implemented), S05 (live verification)
 
 Right-click context menu provides wavetable file loading dialog
 
@@ -109,7 +111,7 @@ Right-click context menu provides wavetable file loading dialog
 - Status: active
 - Class: core-capability
 - Source: inferred
-- Primary Slice: S04
+- Primary Slice: S04 (implemented), S05 (live verification)
 
 Loaded wavetable file path persists across patch save/load (JSON serialization)
 
