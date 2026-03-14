@@ -1,3 +1,17 @@
+# ── VCV Rack build artifacts ──
+build/
+plugin.dylib
+plugin.so
+plugin.dll
+dist/
+
+# ── Test binaries ──
+tests/test_dsp_foundation
+tests/test_polyphonic_routing
+tests/test_modulation
+tests/test_user_wavetables
+tests/test_panel_submission
+*.dSYM/
 
 # ── GSD baseline (auto-generated) ──
 .gsd/activity/
@@ -7,6 +21,11 @@
 .gsd/metrics.json
 .gsd/completed-units.json
 .gsd/STATE.md
+
+# ── Agent runtime ──
+.bg-shell/
+
+# ── OS / editor ──
 .DS_Store
 Thumbs.db
 *.swp
@@ -15,20 +34,14 @@ Thumbs.db
 .idea/
 .vscode/
 *.code-workspace
+
+# ── Secrets ──
 .env
 .env.*
 !.env.example
-node_modules/
-.next/
-dist/
-build/
-__pycache__/
-*.pyc
-.venv/
-venv/
-target/
-vendor/
+
+# ── Misc ──
 *.log
-coverage/
-.cache/
+*.o
+*.d
 tmp/
