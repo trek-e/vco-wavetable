@@ -71,4 +71,4 @@ Authentic PPG wavetable character — the gritty, stepped, digital-analog hybrid
 | Rack 2 primary, Rack 3 compatible | Ship on current stable, don't get blocked on unreleased version | — Pending |
 
 ---
-*Last updated: 2026-03-13 after S01 completion — DSP foundation built and verified with 42 passing tests*
+*Last updated: 2026-03-13 after S02 completion — 8-voice polyphonic routing with unison mode, 68 total tests passing*

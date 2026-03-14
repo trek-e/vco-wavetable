@@ -119,7 +119,7 @@ build/src/Hurricane8VCO.cpp.o: src/Hurricane8VCO.cpp src/plugin.hpp \
   ../Rack-SDK/include/dsp/digital.hpp \
   ../Rack-SDK/include/dsp/vumeter.hpp \
   ../Rack-SDK/include/dsp/convert.hpp src/ppg_wavetables.hpp \
-  src/wavetable_engine.hpp
+  src/wavetable_engine.hpp src/polyphonic_engine.hpp
 src/plugin.hpp:
 ../Rack-SDK/include/rack.hpp:
 ../Rack-SDK/include/common.hpp:
@@ -265,3 +265,4 @@ src/plugin.hpp:
 ../Rack-SDK/include/dsp/convert.hpp:
 src/ppg_wavetables.hpp:
 src/wavetable_engine.hpp:
+src/polyphonic_engine.hpp:

@@ -4,19 +4,21 @@
 
 ### DSP-01 — Oscillator tracks 1V/oct pitch input across 10+ octaves with polyphonic support (8 channels)
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S01 (DSP implemented), S02 (polyphonic routing)
+- Validated by: S01 voct tests (10+ octave accuracy) + S02 voc01_polyphonic_independent_pitches (8-channel per-voice tracking)
 
 Oscillator tracks 1V/oct pitch input across 10+ octaves with polyphonic support (8 channels)
 
 ### DSP-02 — Phase accumulator per voice produces alias-free output using mip-mapped band-limited wavetables
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S01 (DSP implemented), S02 (per-voice routing)
+- Validated by: S01 mipmap tests (band-limiting) + S02 polyphonic tests (8 independent phase accumulators)
 
 Phase accumulator per voice produces alias-free output using mip-mapped band-limited wavetables
 
@@ -175,28 +177,31 @@ Glide (portamento) smoothly transitions between pitch changes with amount contro
 
 ### OUT-01 — 8-channel polyphonic audio output carries all voice signals
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S02
+- Validated by: 26 unit tests in test_polyphonic_routing.cpp (out01_* tests)
 
 8-channel polyphonic audio output carries all voice signals
 
 ### OUT-02 — 8-channel polyphonic gate output passes gate signals downstream
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S02
+- Validated by: Unit tests out02_gate_passthrough_poly, out02_gate_passthrough_unison
 
 8-channel polyphonic gate output passes gate signals downstream
 
 ### OUT-03 — Mix output sums all active voices to a single mono signal
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S02
+- Validated by: 5 unit tests (out03_* tests) including clipping prevention and normalization
 
 Mix output sums all active voices to a single mono signal
 
@@ -229,28 +234,31 @@ Polyphonic velocity CV output passes velocity data from upstream MIDI-CV
 
 ### VOC-01 — Polyphonic mode allocates up to 8 independent voices from polyphonic input channels
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S02
+- Validated by: 5 unit tests (voc01_* tests) proving 1/4/8 voice allocation with independent pitch tracking
 
 Polyphonic mode allocates up to 8 independent voices from polyphonic input channels
 
 ### VOC-02 — Unison mode stacks all 8 voices on a single pitch with configurable detune spread
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S02
+- Validated by: 4 unit tests (voc02_* tests) proving detune spread, zero-detune identity, and gate control
 
 Unison mode stacks all 8 voices on a single pitch with configurable detune spread
 
 ### VOC-03 — User can switch between polyphonic and unison modes
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S02
+- Validated by: 2 unit tests (voc03_* tests) proving bidirectional mode switching
 
 User can switch between polyphonic and unison modes
 

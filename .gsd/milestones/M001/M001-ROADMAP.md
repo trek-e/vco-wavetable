@@ -9,7 +9,7 @@
 
 - [x] **S01: Dsp Foundation** `risk:medium` `depends:[]`
   > After this: unit tests prove dsp-foundation works
-- [ ] **S02: Polyphonic Routing** `risk:medium` `depends:[S01]`
+- [x] **S02: Polyphonic Routing** `risk:medium` `depends:[S01]`
   > After this: unit tests prove Polyphonic Routing works
 - [ ] **S03: Modulation** `risk:medium` `depends:[S02]`
   > After this: unit tests prove Modulation works
