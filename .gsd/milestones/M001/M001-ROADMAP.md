@@ -11,7 +11,7 @@
   > After this: unit tests prove dsp-foundation works
 - [x] **S02: Polyphonic Routing** `risk:medium` `depends:[S01]`
   > After this: unit tests prove Polyphonic Routing works
-- [ ] **S03: Modulation** `risk:medium` `depends:[S02]`
+- [x] **S03: Modulation** `risk:medium` `depends:[S02]`
   > After this: unit tests prove Modulation works
 - [ ] **S04: User Wavetables** `risk:medium` `depends:[S03]`
   > After this: unit tests prove User Wavetables works

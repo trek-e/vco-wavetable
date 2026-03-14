@@ -14,3 +14,7 @@
 | D008 | Unison detune spread is symmetric linear in V/Oct space | Voice 0 = -maxDetune, voice 7 = +maxDetune, linear interpolation between — musically correct exponential frequency spread | 2026-03-13 |
 | D009 | Gate not connected = all V/Oct channels treated as active (10V default) | Matches VCV Rack convention where oscillators run freely; users connecting only V/Oct without gate expect sound | 2026-03-13 |
 | D010 | Unison mode uses channel 0 only for pitch and gate | Simplest correct behavior — unison stacks voices on one note; multi-note unison is a different feature | 2026-03-13 |
+| D011 | ASR envelope modulates position as `start + env*(1-start)` | Sweeps from start position to end of wavetable — musically useful range that respects the start position control | 2026-03-13 |
+| D012 | LFO vibrato depth mapped as semitones in V/Oct space (amount 1.0 = 1 semitone) | 1 semitone max depth matches typical hardware vibrato range; linear in V/Oct gives exponential frequency modulation | 2026-03-13 |
+| D013 | Glide uses one-pole filter on V/Oct input | Exponential frequency response gives constant time per octave traversal — musically correct portamento | 2026-03-13 |
+| D014 | Global envelope triggered by OR of all active gates | Simplest correct behavior — global mode treats the ensemble as one instrument; any note held keeps the envelope open | 2026-03-13 |

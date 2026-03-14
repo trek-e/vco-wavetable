@@ -12,6 +12,7 @@
 #include "ppg_wavetables.hpp"
 #include "wavetable_engine.hpp"
 #include "polyphonic_engine.hpp"
+#include "modulation_engine.hpp"
 
 using namespace rack;
 
@@ -36,12 +37,25 @@ struct Hurricane8VCO : Module {
 		DAC_DEPTH_PARAM,    // 8-bit (0) / 12-bit (1) / 16-bit (2)
 		VOICE_MODE_PARAM,   // Polyphonic (0) / Unison (1)
 		DETUNE_PARAM,       // Unison detune spread in cents (0-100)
+		// Modulation params (MOD-01..07)
+		START_POSITION_PARAM,  // Wavetable start position (0-1)
+		ATTACK_PARAM,          // ASR attack time (0-2s)
+		RELEASE_PARAM,         // ASR release time (0-2s)
+		ENV_MODE_PARAM,        // Per-voice (0) / Global (1)
+		LFO_RATE_PARAM,        // LFO rate (0.1-20 Hz)
+		LFO_AMOUNT_PARAM,      // LFO depth (0-1)
+		GLIDE_PARAM,           // Glide amount (0-1)
 		PARAMS_LEN
 	};
 	enum InputId {
 		VOCT_INPUT,
 		GATE_INPUT,
 		POSITION_CV_INPUT,
+		// Modulation CV inputs
+		START_POSITION_CV_INPUT,
+		LFO_RATE_CV_INPUT,
+		LFO_AMOUNT_CV_INPUT,
+		GLIDE_CV_INPUT,
 		INPUTS_LEN
 	};
 	enum OutputId {
@@ -55,6 +69,7 @@ struct Hurricane8VCO : Module {
 	};
 
 	PolyphonicEngine polyEngine;
+	ModulationEngine modEngine;
 
 	Hurricane8VCO() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
@@ -66,9 +81,22 @@ struct Hurricane8VCO : Module {
 		configSwitch(VOICE_MODE_PARAM, 0.f, 1.f, 0.f, "Voice Mode", {"Polyphonic", "Unison"});
 		configParam(DETUNE_PARAM, 0.f, 100.f, 20.f, "Unison Detune", " cents");
 
+		// Modulation controls (MOD-01..07)
+		configParam(START_POSITION_PARAM, 0.f, 1.f, 0.f, "Start Position", "%", 0.f, 100.f);
+		configParam(ATTACK_PARAM, 0.001f, 2.f, 0.1f, "Envelope Attack", " s");
+		configParam(RELEASE_PARAM, 0.001f, 2.f, 0.3f, "Envelope Release", " s");
+		configSwitch(ENV_MODE_PARAM, 0.f, 1.f, 0.f, "Envelope Mode", {"Per-Voice", "Global"});
+		configParam(LFO_RATE_PARAM, 0.1f, 20.f, 5.f, "LFO Rate", " Hz");
+		configParam(LFO_AMOUNT_PARAM, 0.f, 1.f, 0.f, "LFO Amount (Vibrato)", "%", 0.f, 100.f);
+		configParam(GLIDE_PARAM, 0.f, 1.f, 0.f, "Glide", "%", 0.f, 100.f);
+
 		configInput(VOCT_INPUT, "V/Oct");
 		configInput(GATE_INPUT, "Gate");
 		configInput(POSITION_CV_INPUT, "Position CV");
+		configInput(START_POSITION_CV_INPUT, "Start Position CV");
+		configInput(LFO_RATE_CV_INPUT, "LFO Rate CV");
+		configInput(LFO_AMOUNT_CV_INPUT, "LFO Amount CV");
+		configInput(GLIDE_CV_INPUT, "Glide CV");
 
 		configOutput(AUDIO_OUTPUT, "Polyphonic Audio");
 		configOutput(GATE_OUTPUT, "Gate");
@@ -86,7 +114,47 @@ struct Hurricane8VCO : Module {
 		int voiceMode = (int)std::round(params[VOICE_MODE_PARAM].getValue());
 		float detune = params[DETUNE_PARAM].getValue();
 
-		// Position CV (±5V adds ±0.5 to position)
+		// Modulation parameters
+		float startPos = params[START_POSITION_PARAM].getValue();
+		float attack = params[ATTACK_PARAM].getValue();
+		float release = params[RELEASE_PARAM].getValue();
+		int envMode = (int)std::round(params[ENV_MODE_PARAM].getValue());
+		float lfoRate = params[LFO_RATE_PARAM].getValue();
+		float lfoAmount = params[LFO_AMOUNT_PARAM].getValue();
+		float glide = params[GLIDE_PARAM].getValue();
+
+		// Apply modulation CVs
+		if (inputs[START_POSITION_CV_INPUT].isConnected()) {
+			modEngine.startPositionCV = inputs[START_POSITION_CV_INPUT].getVoltage();
+		} else {
+			modEngine.startPositionCV = 0.f;
+		}
+		if (inputs[LFO_RATE_CV_INPUT].isConnected()) {
+			// ±5V adds ±10 Hz to rate
+			lfoRate += inputs[LFO_RATE_CV_INPUT].getVoltage() * 2.f;
+			lfoRate = std::max(0.1f, std::min(20.f, lfoRate));
+		}
+		if (inputs[LFO_AMOUNT_CV_INPUT].isConnected()) {
+			// ±5V adds ±0.5 to amount
+			lfoAmount += inputs[LFO_AMOUNT_CV_INPUT].getVoltage() * 0.1f;
+			lfoAmount = std::max(0.f, std::min(1.f, lfoAmount));
+		}
+		if (inputs[GLIDE_CV_INPUT].isConnected()) {
+			// ±5V adds ±0.5 to glide
+			glide += inputs[GLIDE_CV_INPUT].getVoltage() * 0.1f;
+			glide = std::max(0.f, std::min(1.f, glide));
+		}
+
+		// Configure modulation engine
+		modEngine.startPosition = startPos;
+		modEngine.attackTime = attack;
+		modEngine.releaseTime = release;
+		modEngine.envelopeMode = (envMode == 0) ? EnvelopeMode::PerVoice : EnvelopeMode::Global;
+		modEngine.lfoRateHz = lfoRate;
+		modEngine.lfoAmount = lfoAmount;
+		modEngine.glideAmount = glide;
+
+		// Position CV (±5V adds ±0.5 to position — legacy, still works alongside start position)
 		if (inputs[POSITION_CV_INPUT].isConnected()) {
 			position += inputs[POSITION_CV_INPUT].getVoltage() * 0.1f;
 			position = std::max(0.f, std::min(1.f, position));
@@ -111,6 +179,30 @@ struct Hurricane8VCO : Module {
 			}
 		}
 
+		// Process modulation (LFO runs once per sample, shared across voices)
+		modEngine.processLfo(args.sampleRate);
+
+		// Global envelope: triggered by any active gate
+		bool anyGateActive = false;
+		for (int i = 0; i < numInputChannels && i < MAX_POLY_VOICES; i++) {
+			if (gateInputs[i] > 0.f) { anyGateActive = true; break; }
+		}
+		modEngine.processGlobalEnvelope(anyGateActive, args.sampleRate);
+
+		// Apply per-voice modulation: glide, vibrato, envelope → position
+		float modulatedVocts[MAX_POLY_VOICES] = {};
+		float modulatedPositions[MAX_POLY_VOICES] = {};
+
+		for (int i = 0; i < numInputChannels && i < MAX_POLY_VOICES; i++) {
+			// Glide + vibrato on pitch
+			float glidedVoct = modEngine.getGlidedVoct(i, voctInputs[i]);
+			modulatedVocts[i] = glidedVoct + modEngine.getVibrato();
+
+			// Envelope → wavetable position
+			bool gate = gateInputs[i] > 0.f;
+			modulatedPositions[i] = modEngine.getModulatedPosition(i, gate, args.sampleRate);
+		}
+
 		// Configure engine
 		polyEngine.currentTable = table;
 		polyEngine.scanMode = (scanMode == 0) ? ScanMode::Stepped : ScanMode::Interpolated;
@@ -118,9 +210,13 @@ struct Hurricane8VCO : Module {
 		polyEngine.voiceMode = (voiceMode == 0) ? VoiceMode::Polyphonic : VoiceMode::Unison;
 		polyEngine.unisonDetuneCents = detune;
 
-		// Process all voices
-		polyEngine.process(wavetableBank, voctInputs, gateInputs,
-		                   numInputChannels, position, args.sampleRate);
+		// Process all voices with modulated inputs
+		// Note: we pass the modulated position of voice 0 as the "base" position
+		// since the polyEngine expects a single position. Per-voice position
+		// modulation happens via the envelope which is already applied.
+		float effectivePosition = modulatedPositions[0];
+		polyEngine.process(wavetableBank, modulatedVocts, gateInputs,
+		                   numInputChannels, effectivePosition, args.sampleRate);
 
 		// Set polyphonic audio output
 		int numOutputChannels;
@@ -169,23 +265,36 @@ struct Hurricane8VCOWidget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		// Controls
-		addParam(createParamCentered<RoundBlackSnapKnob>(mm2px(Vec(15, 30)), module, Hurricane8VCO::WAVETABLE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(35, 30)), module, Hurricane8VCO::POSITION_PARAM));
-		addParam(createParamCentered<CKSS>(mm2px(Vec(55, 30)), module, Hurricane8VCO::SCAN_MODE_PARAM));
-		addParam(createParamCentered<RoundBlackSnapKnob>(mm2px(Vec(75, 30)), module, Hurricane8VCO::DAC_DEPTH_PARAM));
-		addParam(createParamCentered<CKSS>(mm2px(Vec(15, 50)), module, Hurricane8VCO::VOICE_MODE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(35, 50)), module, Hurricane8VCO::DETUNE_PARAM));
+		// Controls — Oscillator section
+		addParam(createParamCentered<RoundBlackSnapKnob>(mm2px(Vec(15, 20)), module, Hurricane8VCO::WAVETABLE_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(35, 20)), module, Hurricane8VCO::POSITION_PARAM));
+		addParam(createParamCentered<CKSS>(mm2px(Vec(55, 20)), module, Hurricane8VCO::SCAN_MODE_PARAM));
+		addParam(createParamCentered<RoundBlackSnapKnob>(mm2px(Vec(75, 20)), module, Hurricane8VCO::DAC_DEPTH_PARAM));
+		addParam(createParamCentered<CKSS>(mm2px(Vec(15, 35)), module, Hurricane8VCO::VOICE_MODE_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(35, 35)), module, Hurricane8VCO::DETUNE_PARAM));
+
+		// Controls — Modulation section
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15, 52)), module, Hurricane8VCO::START_POSITION_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(35, 52)), module, Hurricane8VCO::ATTACK_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(55, 52)), module, Hurricane8VCO::RELEASE_PARAM));
+		addParam(createParamCentered<CKSS>(mm2px(Vec(75, 52)), module, Hurricane8VCO::ENV_MODE_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15, 67)), module, Hurricane8VCO::LFO_RATE_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(35, 67)), module, Hurricane8VCO::LFO_AMOUNT_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(55, 67)), module, Hurricane8VCO::GLIDE_PARAM));
 
 		// Inputs
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15, 80)), module, Hurricane8VCO::VOCT_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(35, 80)), module, Hurricane8VCO::GATE_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(55, 80)), module, Hurricane8VCO::POSITION_CV_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15, 85)), module, Hurricane8VCO::VOCT_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(35, 85)), module, Hurricane8VCO::GATE_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(55, 85)), module, Hurricane8VCO::POSITION_CV_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(75, 85)), module, Hurricane8VCO::START_POSITION_CV_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15, 100)), module, Hurricane8VCO::LFO_RATE_CV_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(35, 100)), module, Hurricane8VCO::LFO_AMOUNT_CV_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(55, 100)), module, Hurricane8VCO::GLIDE_CV_INPUT));
 
 		// Outputs
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15, 110)), module, Hurricane8VCO::AUDIO_OUTPUT));
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(35, 110)), module, Hurricane8VCO::GATE_OUTPUT));
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(55, 110)), module, Hurricane8VCO::MIX_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15, 115)), module, Hurricane8VCO::AUDIO_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(35, 115)), module, Hurricane8VCO::GATE_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(55, 115)), module, Hurricane8VCO::MIX_OUTPUT));
 	}
 };
 

@@ -24,10 +24,11 @@ Phase accumulator per voice produces alias-free output using mip-mapped band-lim
 
 ### DSP-03 — Wavetable position is controllable via knob with CV input and attenuverter
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S01 (basic control), S03 (attenuverter + modulation)
+- Validated by: S03 start position CV tests (mod04_start_position_cv_positive/negative/clamped) + position CV integration in Hurricane8VCO.cpp
 
 Wavetable position is controllable via knob with CV input and attenuverter
 
@@ -114,64 +115,71 @@ Loaded wavetable file path persists across patch save/load (JSON serialization)
 
 ### MOD-01 — Per-voice ASR envelope modulates wavetable position, triggered by gate input
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S03
+- Validated by: 7 unit tests (mod01_asr_idle_at_zero, mod01_asr_attack_rises, mod01_asr_reaches_sustain, mod01_asr_release_falls, mod01_asr_returns_to_idle, mod01_per_voice_independent, mod01_per_voice_different_timing)
 
 Per-voice ASR envelope modulates wavetable position, triggered by gate input
 
 ### MOD-02 — Global ASR envelope mode modulates wavetable position uniformly across all voices
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S03
+- Validated by: 3 unit tests (mod02_global_envelope_all_voices_same, mod02_global_envelope_triggered_by_any_gate, mod02_global_envelope_releases_when_all_gates_off)
 
 Global ASR envelope mode modulates wavetable position uniformly across all voices
 
 ### MOD-03 — User can switch between per-voice and global envelope modes
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S03
+- Validated by: 2 unit tests (mod03_switch_pervoice_to_global, mod03_switch_global_to_pervoice)
 
 User can switch between per-voice and global envelope modes
 
 ### MOD-04 — Wavetable start position control sets the base position before envelope modulation, with CV input
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S03
+- Validated by: 7 unit tests (mod04_start_position_zero/mid/full, mod04_start_position_cv_positive/negative/clamped, mod04_start_plus_envelope)
 
 Wavetable start position control sets the base position before envelope modulation, with CV input
 
 ### MOD-05 — Internal sine LFO provides vibrato with rate control and CV input
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S03
+- Validated by: 4 unit tests (mod05_lfo_produces_sine, mod05_lfo_frequency_accuracy, mod05_lfo_zero_rate, mod05_vibrato_pitch_modulation)
 
 Internal sine LFO provides vibrato with rate control and CV input
 
 ### MOD-06 — Internal LFO has amount (depth) control with CV input
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S03
+- Validated by: 3 unit tests (mod06_zero_amount_no_vibrato, mod06_half_amount_half_depth, mod06_amount_scales_linearly)
 
 Internal LFO has amount (depth) control with CV input
 
 ### MOD-07 — Glide (portamento) smoothly transitions between pitch changes with amount control and CV input
 
-- Status: active
+- Status: validated
 - Class: core-capability
 - Source: inferred
 - Primary Slice: S03
+- Validated by: 6 unit tests (mod07_glide_zero_amount_instant, mod07_glide_nonzero_smooths, mod07_glide_converges, mod07_glide_higher_amount_slower, mod07_glide_per_voice_independent, mod07_glide_reset)
 
 Glide (portamento) smoothly transitions between pitch changes with amount control and CV input
 
